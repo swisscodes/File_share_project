@@ -1,0 +1,5 @@
+<form method='post'>
+{% csrf_token %}
+<p>are you sure you want to delete {{ uploadfile.file_name }}
+<input type='submit' value='Confirm'>
+</form>
