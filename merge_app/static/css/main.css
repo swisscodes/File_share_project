@@ -27,19 +27,19 @@ img {
 
 }
 
-#header div {
+/*#header div {
     
 
-}
+}*/
 
 #header div:last-child {
     margin-left: auto;
     padding-right: 15px;
 }
 
-.logo {
+/*.logo {
     
-}
+}*/
 
 form p {
     display: flex;
