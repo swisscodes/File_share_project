@@ -9,9 +9,12 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o+9^=xfvui9!en83a+ho42e2_r65_h_n0-8cde0p$!=^!37pd_'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -34,24 +37,34 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My installed apps
     'merge_app',
+    'api',
     #########################
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic', #whitenoise installed
     'django.contrib.staticfiles',
+
+    # 3rd Party apps """"""""""""""""""""
+    'rest_framework',
+    'corsheaders',
+    #####################################
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', ## cors installed
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'merga_config.urls'
@@ -81,9 +94,9 @@ WSGI_APPLICATION = 'merga_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Merga_yazilim',
-        'USER': 'swissbobo',
-        'PASSWORD': 'Bar77ton',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -127,6 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -135,7 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 ###### Log in Logout pages ####
-LOGIN_REDIRECT_URL = 'merge:dashboard'
+LOGIN_REDIRECT_URL = 'merge:home'
 
 LOGIN_URL = 'merge:login'
 
@@ -146,3 +162,13 @@ LOGOUT_URL = 'merge:logout'
 
 MEDIA_URL  = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# cors settings
+CORS_ORIGIN_WHITELIST = (
+
+'http://localhost:3000',
+
+'http://localhost:8000',
+
+)

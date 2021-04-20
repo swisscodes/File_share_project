@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from . models import UploadFile
+from . models import SharedFile, UploadFile
 from django.forms.widgets import Textarea
 
 
@@ -25,6 +25,23 @@ class UploadForm(forms.ModelForm):
     class Meta:
         model = UploadFile
         fields = ('document', 'record_no', 'file_name', 'description', 'share_status')
+        widgets = {
+            'description': Textarea()
+        }
+
+
+
+class Shareform(forms.ModelForm):
+    class Meta:
+        model = UploadFile
+        fields = ('share_status',)
+
+
+
+class Upload_EditForm(forms.ModelForm):
+    class Meta:
+        model = UploadFile
+        fields = fields = ('record_no', 'file_name', 'description', 'share_status')
         widgets = {
             'description': Textarea()
         }

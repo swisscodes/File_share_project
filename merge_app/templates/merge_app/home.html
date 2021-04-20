@@ -1,0 +1,14 @@
+{% extends "merge_app/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="posted-div">
+    {% for item in obj %}
+    <div class="home-items">
+        <h1>Shared by {{ item.share_by }}</h1>
+        <p><img src="{{ item.file_id }}"></p>
+    </div>
+    {% endfor %}
+{% endblock content %}

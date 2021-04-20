@@ -1,0 +1,10 @@
+# django #
+*.log
+*.env
+*.pot
+__pycache__
+media
+*bak
+.python-version
+.env
+.venv

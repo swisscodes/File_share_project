@@ -12,25 +12,12 @@
 <div class="posted-div">
     {% for item in current_user_object %}
         <div>
-            <img src="{{ item.document.url }}" alt="{{ item.file_name }}">
-             <p><button type='submit'>Share<button></p>
-            </p>
-            
-            <p>
-            <a href="{% url "merge:delete" item.id %}"<button type='submit'>Delete<button></a></p>
+            <p><img src="{{ item.document.url }}" alt="{{ item.file_name }}"></p>
+            <p><a href="{% url "merge:share" item.id %}"><button type='submit'>Share<button></a></p>
+            <p><a href="{% url "merge:delete" item.id %}"><button type='submit'>Delete<button></a></p>
+            <p><a href="{% url "merge:edit" item.id %}"><button type='submit'>Edit<button></a></p>
         </div>
-        
     {% endfor %}
-    </div>
-
-<div class="form-div">
-    <h1>Upload your Document</h1>
-    <form action='' method='post' enctype='multipart/form-data'>
-        {% csrf_token %}
-        {{ upload_form.as_p }}
-        <input type='submit' value='Upload'>
-        {{ upload_form.errors }}
-    </form>
 </div>
 
-{% endblock %}
+{% endblock content %}

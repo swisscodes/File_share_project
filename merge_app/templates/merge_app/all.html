@@ -1,0 +1,9 @@
+{% extends "merge_app/base.html" %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+    {% for item in obj %}
+        <p><img src="{{ item.document.url }}" alt="{{ item.file_name }}"></p>
+    {% endfor %}
+{% endblock content %}

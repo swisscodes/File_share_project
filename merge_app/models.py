@@ -25,7 +25,7 @@ class UploadFile(models.Model):
 
     
     def __str__(self):
-        return self.file_name
+        return self.document.url
     
 
     
@@ -35,7 +35,11 @@ class SharedFile(models.Model):
         related_name='user_shared')
     file_id = models.ForeignKey(UploadFile, on_delete=models.CASCADE,\
         related_name='shared_file')
-    
+
+    #class Meta:
+        #ordering = ('-file_id__uploaded_at',)
+        # i used the order_by(file_id____uploaded_at) in the view
+
 
     def __str__(self):
         return self.file_id.file_name

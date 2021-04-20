@@ -1,0 +1,1 @@
+web: gunicorn merga_config.wsgi --log-file-

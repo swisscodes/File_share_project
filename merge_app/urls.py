@@ -5,7 +5,9 @@ from . import views
 app_name = 'merge'
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('', views.home_page, name='home'),
+    path('user', views.dashboard, name='dashboard'),
+    path('share/<int:obj_id>', views.change_status, name='share'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(),\
@@ -22,5 +24,7 @@ urlpatterns = [
         name='password_reset_complete'),
     path('register/', views.register, name='register'),
     path('<pk>/delete', views.DeleteFile.as_view(), name='delete'),
+    path('upload/', views.upload, name='upload'),
+    path('edit/<int:obj_id>/', views.editForm, name='edit'),
 
 ]

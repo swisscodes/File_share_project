@@ -10,7 +10,7 @@
 
 <body>
     <div id="header">
-        <div><span class="logo">Merga Yazilim</span></div>
+        <div><a href="{% url "merge:home" %}"<span class="logo">Merga Yazilim</span></a></div>
         {% if request.user.is_authenticated %}
             <div>
                 <ul class="menu">
@@ -19,7 +19,7 @@
                     </li>
                     
                     <li {% if section == "images" %}class="selected"{% endif %}>
-                    <a href="#">Images</a>
+                    <a href="{% url "merge:upload" %}">Upload</a>
                     </li>
 
                     <li {% if section == "people" %}class="selected"{% endif %}>
