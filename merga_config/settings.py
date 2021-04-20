@@ -171,4 +171,10 @@ CORS_ORIGIN_WHITELIST = (
 
 'http://localhost:8000',
 
+'https://swiss-merga.herokuapp.com',
 )
+
+# HTTPS SETTINGS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE =True
+SECURE_SSL_REDIRECT =True
